@@ -25,11 +25,6 @@ public class Main {
     }
 
     // Method 1 for checking if a string matches a regex: using Pattern.matches
-    // TODO: Modify this code to check if the given string is non-empty, contains at least
-    //       one lower case letter, at least one upper case letter, and at least one digit. If the
-    //       string has all of these properties, the method should return true. If it is missing one
-    //       or more properties, it should return false.
-
     /**
      * Returns whether a given string is non-empty, contains one lower case letter,
      * at least one upper case letter, at least one digit, and meets the minimum length.
@@ -38,9 +33,16 @@ public class Main {
      * @return whether the string satisfies the password requirements
      */
     public static boolean checkForPassword(String str, int minLength) {
-        final boolean propertyOne = Pattern.matches("REPLACE WITH CORRECT REGEX", str);
-        // as needed, modify this code.
-        return propertyOne;
+        //tests for min length and not empty
+        if((str != null) && (str.length() >= minLength)) {
+            // at least .*.*, one lowercase, one uppercase, one digit
+            final boolean propertyOne = Pattern.matches(".*[a-z].*", str);
+            final boolean propertyTwo = Pattern.matches(".*\\d.*" ,str);
+            final boolean propertyThree = Pattern.matches(".*[A-Z].*", str);
+
+            return propertyOne && propertyTwo && propertyThree;
+        }
+        return false;
     }
 
     // Method 2 for checking if a string conforms to a regex: using Matcher.find
@@ -55,12 +57,16 @@ public class Main {
      * @return a list containing the email addresses in the string.
      */
     public static List<String> extractEmails(String str) {
-        final Pattern pattern = Pattern.compile("REPLACE WITH CORRECT REGEX");
-        final Matcher matcher = pattern.matcher(str);
-        final List<String> result = new ArrayList<>();
-        while (matcher.find()) {
-            result.add(matcher.group());
+        if(str != null) {
+            final Pattern pattern = Pattern.compile("(j(?<=j).*?@mail.utoronto.ca)|j((?<=j).*?@utoronto.ca)");
+            final Matcher matcher = pattern.matcher(str);
+            final List<String> result = new ArrayList<>();
+            while (matcher.find()) {
+                result.add(matcher.group());
+            }
+            return result;
         }
+        final List<String> result = new ArrayList<>();
         return result;
     }
 
@@ -76,6 +82,9 @@ public class Main {
      * @return whether str contains the same capital letter twice.
      */
     public static boolean checkForDoubles(String str) {
-        return str.matches("replace with correct regex");
+        if(str != null) {
+            return str.matches("([A-Z]).*\1");
+        }
+        return false;
     }
 }
