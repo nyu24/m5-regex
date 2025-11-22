@@ -83,7 +83,7 @@ public class Main {
      */
     public static boolean checkForDoubles(String str) {
         if(str != null) {
-            return str.matches("([A-Z]).*\1");
+            return str.matches(".*([A-Z]).*\\1.*");
         }
         return false;
     }
